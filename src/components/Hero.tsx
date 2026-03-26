@@ -22,9 +22,9 @@ const Hero = () => {
           className="max-w-2xl"
         >
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.95] mb-6">
-            Bloom
+            Erin Ehrlich
             <br />
-            <span className="italic font-normal">& Company</span>
+            <span className="italic font-normal">Floral Design</span>
           </h1>
           <p className="font-body text-lg md:text-xl text-muted-foreground max-w-md leading-relaxed">
             Bespoke floral design for life's most meaningful moments.

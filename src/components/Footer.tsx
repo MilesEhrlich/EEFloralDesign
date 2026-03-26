@@ -15,7 +15,7 @@ const Footer = () => {
           </div>
           <div className="flex flex-col justify-between">
             <div className="space-y-4 font-body text-primary-foreground/80">
-              <p>hello@bloomandcompany.com</p>
+              <p>hello@erinehrlichfloral.com</p>
               <p>(555) 234-5678</p>
               <p>142 Garden Lane, Suite 3<br />Portland, OR 97201</p>
             </div>
@@ -26,7 +26,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-20 pt-8 border-t border-primary-foreground/15 font-body text-sm text-primary-foreground/40">
-          © 2025 Bloom & Company. All rights reserved.
+          © 2025 Erin Ehrlich Floral Design. All rights reserved.
         </div>
       </div>
     </footer>

@@ -26,7 +26,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between">
         <a href="#" className="font-display text-xl md:text-2xl font-medium tracking-tight">
-          Bloom <span className="italic font-normal">&</span> Co.
+          <span className="font-display text-2xl md:text-3xl font-bold tracking-tighter">EE</span>
         </a>
 
         {/* Desktop links */}

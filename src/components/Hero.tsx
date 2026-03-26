@@ -26,7 +26,7 @@ const Hero = () => {
             <br />
             <span className="italic font-normal">Floral Design</span>
           </h1>
-          <p className="font-body text-lg md:text-xl text-muted-foreground max-w-md leading-relaxed">
+          <p className="font-body text-lg md:text-xl text-foreground/80 max-w-md leading-relaxed">
             Bespoke floral design for life's most meaningful moments.
           </p>
         </motion.div>

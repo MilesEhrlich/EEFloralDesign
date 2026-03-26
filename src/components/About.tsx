@@ -16,8 +16,8 @@ const About = () => {
             Rooted in Beauty
           </h2>
           <p className="font-body text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-6">
-            Bloom & Company is a boutique floral studio specializing in weddings, 
-            events, and curated everyday arrangements. We believe flowers tell stories — 
+            Erin Ehrlich Floral Design is a boutique studio specializing in weddings, 
+            events, and bespoke installations. We believe flowers tell stories — 
             and every petal, stem, and texture is chosen with care and intention.
           </p>
           <p className="font-body text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">

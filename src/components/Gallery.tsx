@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
@@ -15,7 +16,12 @@ const images = [
   { src: gallery6, alt: "Ceremony floral archway", w: 800, h: 800, label: "Ceremony" },
 ];
 
+const INITIAL_COUNT = 4;
+
 const Gallery = () => {
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? images : images.slice(0, INITIAL_COUNT);
+
   return (
     <section id="portfolio" className="py-24 md:py-36 px-6 md:px-12">
       <div className="container mx-auto">
@@ -33,7 +39,7 @@ const Gallery = () => {
         </motion.div>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
-          {images.map((img, i) => (
+          {visible.map((img, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -58,6 +64,22 @@ const Gallery = () => {
             </motion.div>
           ))}
         </div>
+
+        {!showAll && images.length > INITIAL_COUNT && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-12 text-center"
+          >
+            <button
+              onClick={() => setShowAll(true)}
+              className="font-body text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors border-b border-muted-foreground/30 hover:border-foreground pb-1"
+            >
+              View More
+            </button>
+          </motion.div>
+        )}
       </div>
     </section>
   );

@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 const services = [
   { title: "Weddings", desc: "Full floral design for your ceremony, reception, and everything in between." },
   { title: "Events", desc: "Corporate gatherings, dinner parties, and celebrations of every scale." },
-  { title: "Everyday", desc: "Weekly subscriptions and one-time arrangements delivered to your door." },
   { title: "Installations", desc: "Statement pieces for storefronts, hotels, and editorial shoots." },
 ];
 

@@ -13,6 +13,9 @@ const Hero = () => {
           height={1080}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-background/5" />
+        <span className="absolute bottom-3 right-3 bg-black/40 rounded px-1.5 py-0.5 font-body text-[10px] text-white/90 tracking-wide pointer-events-none z-10">
+          YTK Photography
+        </span>
       </div>
       <div className="relative z-10 container mx-auto px-6 md:px-12">
         <motion.div

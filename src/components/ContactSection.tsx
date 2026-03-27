@@ -1,5 +1,5 @@
 import { useState } from "react";
-import contactImg from "@/assets/Contact.jpg";
+import contactImg from "@/assets/Contact.jpeg";
 
 interface FormData {
   firstName: string;
@@ -96,6 +96,9 @@ const ContactSection = () => {
     >
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/45" />
+      <span className="absolute bottom-2 right-3 font-body text-[10px] text-white/40 tracking-wide pointer-events-none z-20">
+        Chelsea Ahl Photography
+      </span>
 
       <div className="relative z-10 w-full max-w-xl mx-auto flex flex-col items-center text-center">
         {/* Heading */}

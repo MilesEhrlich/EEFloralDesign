@@ -19,30 +19,71 @@ import gallery17 from "@/assets/gallery-17.webp";
 import gallery18 from "@/assets/gallery-18.png";
 
 const images = [
-  { src: gallery1, alt: "Bridal bouquet with garden roses", w: 800, h: 1000, label: "Bridal" },
-  { src: gallery2, alt: "Wedding table centerpiece", w: 800, h: 800, label: "Events" },
-  { src: gallery3, alt: "Minimalist vase arrangement", w: 800, h: 1000, label: "Everyday" },
-  { src: gallery4, alt: "Hanging floral installation", w: 800, h: 800, label: "Installations" },
-  { src: gallery5, alt: "Wild gathered seasonal bouquet", w: 800, h: 1000, label: "Seasonal" },
-  { src: gallery6, alt: "Ceremony floral archway", w: 800, h: 800, label: "Ceremony" },
-  { src: gallery7, alt: "Elegant floral design", w: 800, h: 1000, label: "Design" },
-  { src: gallery8, alt: "Beautiful bouquet", w: 800, h: 800, label: "Bridal" },
-  { src: gallery9, alt: "Event floral styling", w: 800, h: 1000, label: "Events" },
-  { src: gallery10, alt: "Everyday floral arrangement", w: 800, h: 800, label: "Everyday" },
-  { src: gallery11, alt: "Special installation", w: 800, h: 1000, label: "Installations" },
-  { src: gallery13, alt: "Seasonal flowers", w: 800, h: 800, label: "Seasonal" },
-  { src: gallery14, alt: "Ceremony setup", w: 800, h: 1000, label: "Ceremony" },
-  { src: gallery15, alt: "Creative floral art", w: 800, h: 800, label: "Design" },
-  { src: gallery16, alt: "Garden roses", w: 800, h: 1000, label: "Bridal" },
-  { src: gallery17, alt: "Spring bouquet", w: 800, h: 800, label: "Events" },
-  { src: gallery18, alt: "Custom floral piece", w: 800, h: 1000, label: "Custom" },
+  { src: gallery1, alt: "Bridal bouquet with garden roses", w: 800, h: 1000 },
+  { src: gallery2, alt: "Wedding table centerpiece", w: 800, h: 800 },
+  { src: gallery3, alt: "Minimalist vase arrangement", w: 800, h: 1000 },
+  { src: gallery4, alt: "Hanging floral installation", w: 800, h: 800 },
+  { src: gallery5, alt: "Wild gathered seasonal bouquet", w: 800, h: 1000 },
+  { src: gallery6, alt: "Ceremony floral archway", w: 800, h: 800 },
+  { src: gallery7, alt: "Elegant floral design", w: 800, h: 1000 },
+  { src: gallery8, alt: "Beautiful bouquet", w: 800, h: 800 },
+  { src: gallery9, alt: "Event floral styling", w: 800, h: 1000 },
+  { src: gallery10, alt: "Everyday floral arrangement", w: 800, h: 800 },
+  { src: gallery11, alt: "Special installation", w: 800, h: 1000 },
+  { src: gallery13, alt: "Seasonal flowers", w: 800, h: 800 },
+  { src: gallery14, alt: "Ceremony setup", w: 800, h: 1000 },
+  { src: gallery15, alt: "Creative floral art", w: 800, h: 800 },
+  { src: gallery16, alt: "Garden roses", w: 800, h: 1000 },
+  { src: gallery17, alt: "Spring bouquet", w: 800, h: 800 },
+  { src: gallery18, alt: "Custom floral piece", w: 800, h: 1000 },
 ];
 
-const INITIAL_COUNT = 4;
+const INITIAL_COUNT = 6;
+
+// Distribute images across N columns — stable order so existing images never move
+function buildColumns(imgs: typeof images, numCols: number) {
+  const cols: { img: typeof images[0]; index: number }[][] = Array.from({ length: numCols }, () => []);
+  imgs.forEach((img, i) => cols[i % numCols].push({ img, index: i }));
+  return cols;
+}
+
+const GalleryImage = ({
+  img,
+  index,
+  isNew,
+}: {
+  img: typeof images[0];
+  index: number;
+  isNew: boolean;
+}) => (
+  <motion.div
+    key={index}
+    initial={isNew ? { opacity: 0, y: 32 } : { opacity: 1, y: 0 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{
+      duration: 0.6,
+      delay: isNew ? (index % 3) * 0.1 : 0,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    }}
+    className="relative overflow-hidden rounded-sm mb-4 md:mb-6"
+  >
+    <img
+      src={img.src}
+      alt={img.alt}
+      loading="lazy"
+      width={img.w}
+      height={img.h}
+      className="w-full h-auto object-cover"
+    />
+  </motion.div>
+);
 
 const Gallery = () => {
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? images : images.slice(0, INITIAL_COUNT);
+
+  const cols3 = buildColumns(visible, 3);
+  const cols2 = buildColumns(visible, 2);
 
   return (
     <section id="portfolio" className="py-24 md:py-36 px-6 md:px-12">
@@ -60,25 +101,32 @@ const Gallery = () => {
           </p>
         </motion.div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
-          {visible.map((img, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="break-inside-avoid relative overflow-hidden rounded-sm"
-            >
-              <img
-                src={img.src}
-                alt={img.alt}
-                loading="lazy"
-                width={img.w}
-                height={img.h}
-                className="w-full h-auto object-cover transition-transform duration-700"
-              />
-            </motion.div>
+        {/* 3-column masonry (lg+) */}
+        <div className="hidden lg:flex gap-6">
+          {cols3.map((col, ci) => (
+            <div key={ci} className="flex-1 flex flex-col">
+              {col.map(({ img, index }) => (
+                <GalleryImage key={index} img={img} index={index} isNew={index >= INITIAL_COUNT} />
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {/* 2-column masonry (sm–md) */}
+        <div className="hidden sm:flex lg:hidden gap-4">
+          {cols2.map((col, ci) => (
+            <div key={ci} className="flex-1 flex flex-col">
+              {col.map(({ img, index }) => (
+                <GalleryImage key={index} img={img} index={index} isNew={index >= INITIAL_COUNT} />
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {/* 1-column (mobile) */}
+        <div className="flex sm:hidden flex-col gap-4">
+          {visible.map((img, index) => (
+            <GalleryImage key={index} img={img} index={index} isNew={index >= INITIAL_COUNT} />
           ))}
         </div>
 

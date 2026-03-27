@@ -15,13 +15,12 @@ const Footer = () => {
           </div>
           <div className="flex flex-col justify-between">
             <div className="space-y-4 font-body text-primary-foreground/80">
-              <p>hello@erinehrlichfloral.com</p>
-              <p>(555) 234-5678</p>
-              <p>142 Garden Lane, Suite 3<br />Portland, OR 97201</p>
+              <p>Erin@eefloraldesign.com</p>
+              <p>(518) 369-0554</p>
             </div>
             <div className="flex gap-8 mt-10 font-body text-sm tracking-widest uppercase text-primary-foreground/50">
-              <a href="#" className="hover:text-primary-foreground transition-colors">Instagram</a>
-              <a href="#" className="hover:text-primary-foreground transition-colors">Pinterest</a>
+              <a href="#https://www.instagram.com/eefloraldesign/" className="hover:text-primary-foreground transition-colors">Instagram</a>
+              <a href="#https://www.facebook.com/p/Erin-Ehrlich-Floral-Design-LLC-100063519762241/" className="hover:text-primary-foreground transition-colors">Pinterest</a>
             </div>
           </div>
         </div>

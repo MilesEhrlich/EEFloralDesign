@@ -63,3 +63,14 @@
     font-family: var(--font-display);
   }
 }
+
+/* Parallax background: fixed on desktop, scroll on mobile (iOS fix) */
+.parallax-bg {
+  background-attachment: scroll;
+}
+
+@media (hover: hover) {
+  .parallax-bg {
+    background-attachment: fixed;
+  }
+}

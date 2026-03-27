@@ -52,12 +52,11 @@ const ContactSection = () => {
 
   return (
     <section
-      className="relative py-12 md:py-16 px-6 md:px-12 flex items-center justify-center overflow-hidden"
+    className="parallax-bg relative py-12 md:py-16 px-6 md:px-12 flex items-center justify-center overflow-hidden"
       style={{
         backgroundImage: `url(${contactImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundAttachment: "fixed",
       }}
     >
       {/* Dark overlay */}

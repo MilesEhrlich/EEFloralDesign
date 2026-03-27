@@ -160,7 +160,10 @@ const GalleryImage = ({
         className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
       />
       {img.credit && (
-        <span className="absolute bottom-2 right-2 bg-black/40 rounded px-1.5 py-0.5 font-body text-[10px] text-white/90 tracking-wide pointer-events-none">
+        <span
+          className="absolute bottom-2 right-2 font-body text-[10px] text-white/80 tracking-wide pointer-events-none"
+          style={{ WebkitTextStroke: "0.3px rgba(0,0,0,0.4)" }}
+        >
           {img.credit}
         </span>
       )}

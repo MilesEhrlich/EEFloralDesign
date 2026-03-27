@@ -236,7 +236,6 @@ const ContactPage = () => {
                       <option value="Elopement">Elopement</option>
                       <option value="Corporate Event">Corporate Event</option>
                       <option value="Private Event">Private Event</option>
-                      <option value="Everyday Arrangement">Everyday Arrangement</option>
                       <option value="Other">Other</option>
                     </select>
                   </div>

@@ -13,7 +13,10 @@ const Hero = () => {
           height={1080}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-background/5" />
-        <span className="absolute bottom-3 right-3 bg-black/40 rounded px-1.5 py-0.5 font-body text-[10px] text-white/90 tracking-wide pointer-events-none z-10">
+        <span
+          className="absolute bottom-3 right-3 font-body text-[10px] text-white/80 tracking-wide pointer-events-none z-10"
+          style={{ WebkitTextStroke: "0.3px rgba(0,0,0,0.4)" }}
+        >
           YTK Photography
         </span>
       </div>

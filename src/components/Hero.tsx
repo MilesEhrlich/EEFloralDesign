@@ -12,7 +12,7 @@ const Hero = () => {
           width={1920}
           height={1080}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-background/5" />
       </div>
       <div className="relative z-10 container mx-auto px-6 md:px-12">
         <motion.div

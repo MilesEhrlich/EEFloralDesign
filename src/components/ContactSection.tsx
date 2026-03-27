@@ -1,5 +1,5 @@
 import { useState } from "react";
-import contactImg from "@/assets/Contact.webp";
+import contactImg from "@/assets/Contact.jpg";
 
 interface FormData {
   firstName: string;

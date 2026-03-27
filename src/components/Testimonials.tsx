@@ -27,7 +27,7 @@ const Testimonials = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="font-display text-4xl md:text-5xl font-medium mb-16 md:mb-20"
+          className="font-display text-4xl md:text-5xl font-medium mb-16 md:mb-5"
         >
           Kind Words
         </motion.h2>

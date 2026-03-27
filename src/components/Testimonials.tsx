@@ -37,7 +37,7 @@ const Testimonials = () => {
           </p>
         </div>
         <div className = "flex justify-end">
-          <p className="font-body text-lg md:text-2xl leading-relaxed text-foreground mb-8 italic">
+          <p className="font-display text-4xl md:text-2xl font-medium mb-16 md:mb-8 italic">
             -Erin Ehrlich
           </p>
         </div>

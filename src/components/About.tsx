@@ -36,9 +36,11 @@ const About = () => {
             <br />
             I would love to help you have the wedding of your dreams at a price point that you can achieve.   Please contact me so that we can schedule a free consultation and make your vision a reality.
           </p>
-          <p className="font-body text-2xl text foreground italic leading-relaxed max-w-2xl mx-auto">
+          <div className = "flex justify-center">
+          <p className="font-display text-4xl md:text-2xl font-medium mb-16 md:mb-8 italic">
             -Erin Ehrlich
           </p>
+        </div>
         </motion.div>
       </div>
     </section>

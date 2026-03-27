@@ -27,8 +27,9 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <Link to="/" className="font-display text-2xl md:text-3xl font-bold tracking-tighter">
-          EE
+        <Link to="/" className="flex flex-col items-center leading-none">
+          <span className="font-display text-2xl md:text-3xl tracking-[0.01em] font-bold tracking-tighter">EE</span>
+          <span className="font-body text-[10px] tracking-[0.00em] uppercase text-muted-foreground mt-0.5">Floral Design</span>
         </Link>
 
         {/* Desktop links */}

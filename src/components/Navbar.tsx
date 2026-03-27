@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -12,9 +14,9 @@ const Navbar = () => {
   }, []);
 
   const links = [
-    { label: "Portfolio", href: "#portfolio" },
-    { label: "About", href: "#about" },
-    { label: "Services", href: "#services" },
+    { label: "Portfolio", href: "/portfolio" },
+    { label: "About", href: "/about" },
+    { label: "Services", href: "/services" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -25,21 +27,35 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <a href="#" className="font-display text-xl md:text-2xl font-medium tracking-tight">
-          <span className="font-display text-2xl md:text-3xl font-bold tracking-tighter">EE</span>
-        </a>
+        <Link to="/" className="font-display text-2xl md:text-3xl font-bold tracking-tighter">
+          EE
+        </Link>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-10">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="font-body text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) =>
+            l.href.startsWith("#") ? (
+              <a
+                key={l.href}
+                href={l.href}
+                className="font-body text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <Link
+                key={l.href}
+                to={l.href}
+                className={`font-body text-sm tracking-widest uppercase transition-colors ${
+                  location.pathname === l.href
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {l.label}
+              </Link>
+            )
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -61,16 +77,27 @@ const Navbar = () => {
             className="md:hidden overflow-hidden bg-background/95 backdrop-blur-md"
           >
             <div className="container mx-auto py-8 flex flex-col gap-6">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="font-display text-2xl"
-                >
-                  {l.label}
-                </a>
-              ))}
+              {links.map((l) =>
+                l.href.startsWith("#") ? (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="font-display text-2xl"
+                  >
+                    {l.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={l.href}
+                    to={l.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="font-display text-2xl"
+                  >
+                    {l.label}
+                  </Link>
+                )
+              )}
             </div>
           </motion.div>
         )}

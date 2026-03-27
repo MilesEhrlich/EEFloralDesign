@@ -1,15 +1,16 @@
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
+import Gallery from "@/components/Gallery";
 import Footer from "@/components/Footer";
 
-const Index = () => {
+const Portfolio = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <Hero />
+      <div className="pt-28" />
+      <Gallery />
       <Footer />
     </div>
   );
 };
 
-export default Index;
+export default Portfolio;

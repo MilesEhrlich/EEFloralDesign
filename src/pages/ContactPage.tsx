@@ -31,6 +31,8 @@ const ContactPage = () => {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -42,9 +44,45 @@ const ContactPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) setSubmitted(true);
+    if (!validate()) return;
+    
+    setIsSubmitting(true);
+    setSubmitError("");
+    
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "77c7ee8e-8d8f-49b1-bafc-14b48e39ca58",
+          subject: "New Consultation Request from EE Floral Website",
+          "First Name": form.firstName,
+          "Last Name": form.lastName,
+          Email: form.email || "Not provided",
+          Phone: form.phone || "Not provided",
+          "Event Date": form.eventDate || "Not provided",
+          "Event Type": form.eventType || "Not provided",
+          Message: form.message || "No message provided",
+        }),
+      });
+      
+      const result = await response.json();
+      if (response.status === 200) {
+        setSubmitted(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        setSubmitError(result.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      setSubmitError("Failed to send. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -113,7 +151,7 @@ const ContactPage = () => {
             >
               {submitted ? (
                 <div className="py-20 font-body text-xl text-foreground">
-                  Thank you! I'll be in touch soon. 🌸
+                  Thank you! I'll be in touch soon.
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -213,11 +251,15 @@ const ContactPage = () => {
                     className={`${inputClass} resize-none`}
                   />
 
+                  {submitError && (
+                    <p className="text-sm text-rose-500 font-body mb-4">{submitError}</p>
+                  )}
                   <button
                     type="submit"
-                    className="w-full py-3 font-body text-sm tracking-widest uppercase bg-foreground text-background hover:bg-foreground/85 transition-colors rounded-sm"
+                    disabled={isSubmitting}
+                    className="w-full py-3 font-body text-sm tracking-widest uppercase bg-foreground text-background hover:bg-foreground/85 transition-colors rounded-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Send Request
+                    {isSubmitting ? "Sending..." : "Send Request"}
                   </button>
                 </form>
               )}

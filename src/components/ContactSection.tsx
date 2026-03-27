@@ -25,6 +25,8 @@ const ContactSection = () => {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -36,9 +38,42 @@ const ContactSection = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) setSubmitted(true);
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "77c7ee8e-8d8f-49b1-bafc-14b48e39ca58",
+          subject: "New Consultation Request from EE Floral Website",
+          "First Name": form.firstName,
+          "Last Name": form.lastName,
+          Email: form.email || "Not provided",
+          Phone: form.phone || "Not provided",
+          Message: form.message || "No message provided",
+        }),
+      });
+
+      const result = await response.json();
+      if (response.status === 200) {
+        setSubmitted(true);
+      } else {
+        setSubmitError(result.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      setSubmitError("Failed to send. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -83,7 +118,7 @@ const ContactSection = () => {
         {/* Form */}
         {submitted ? (
           <div className="w-full bg-white/15 backdrop-blur-md rounded-sm border border-white/20 p-10 text-white font-body text-xl">
-            Thank you! I'll be in touch soon. 🌸
+            Thank you! I'll be in touch soon.
           </div>
         ) : (
           <form
@@ -144,11 +179,16 @@ const ContactSection = () => {
               <p className="font-body text-xs text-rose-300 mb-3">{errors.contact}</p>
             )}
 
+            {submitError && (
+              <p className="font-body text-xs text-rose-300 mt-2 mb-2 text-center">{submitError}</p>
+            )}
+
             <button
               type="submit"
-              className="w-full mt-4 py-2.5 font-body text-sm tracking-widest uppercase bg-white text-foreground hover:bg-white/90 transition-colors rounded-sm"
+              disabled={isSubmitting}
+              className="w-full mt-4 py-2.5 font-body text-sm tracking-widest uppercase bg-white text-foreground hover:bg-white/90 transition-colors rounded-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Send Request
+              {isSubmitting ? "Sending..." : "Send Request"}
             </button>
           </form>
         )}

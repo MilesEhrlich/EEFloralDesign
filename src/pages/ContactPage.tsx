@@ -81,7 +81,7 @@ const ContactPage = () => {
               </p>
               <h1 className="font-display text-5xl md:text-6xl font-medium tracking-tight leading-[0.95] mb-8">
                 Contact<br />
-                <span className="italic font-normal">Us</span>
+                <span className=" font-normal">Us</span>
               </h1>
               <p className="font-body text-muted-foreground leading-relaxed mb-10 max-w-sm">
                 I'd love to hear about your event, vision, or any questions you have.

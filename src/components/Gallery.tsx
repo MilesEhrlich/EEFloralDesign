@@ -95,7 +95,7 @@ const Gallery = () => {
           transition={{ duration: 0.8 }}
           className="mb-16 md:mb-20"
         >
-          <h2 className="font-display text-4xl md:text-5xl font-medium mb-4">Our Work</h2>
+          <h2 className="font-display text-4xl md:text-5xl font-medium mb-4">Previous Work</h2>
           <p className="text-muted-foreground font-body text-lg max-w-lg">
             {/*A collection of arrangements crafted with seasonal blooms and intentional design.*/}
           </p>

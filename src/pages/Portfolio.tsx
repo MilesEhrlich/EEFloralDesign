@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Gallery from "@/components/Gallery";
+import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
 const Portfolio = () => {
@@ -8,6 +9,7 @@ const Portfolio = () => {
       <Navbar />
       <div className="pt-28" />
       <Gallery />
+      <ContactSection />
       <Footer />
     </div>
   );

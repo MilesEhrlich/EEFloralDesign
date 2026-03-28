@@ -25,7 +25,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 border-t border-primary-foreground/15 pt-6 font-body text-sm text-primary-foreground/40">
-          © 2025 Erin Ehrlich Floral Design. All rights reserved.
+          © 2026 Erin Ehrlich Floral Design. All rights reserved.
         </div>
       </div>
     </footer>

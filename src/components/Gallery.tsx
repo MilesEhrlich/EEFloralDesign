@@ -15,7 +15,7 @@ import gallery13 from "@/assets/gallery-13.jpg";
 import gallery14 from "@/assets/gallery-14.jpg";
 import gallery15 from "@/assets/gallery-15.jpg";
 import gallery16 from "@/assets/gallery-16.jpeg";
-import gallery17 from "@/assets/gallery-17.jpeg";
+import gallery17 from "@/assets/gallery-17.jpg";
 import gallery18 from "@/assets/gallery-18.jpg";
 import gallery19 from "@/assets/gallery-19.jpeg";
 import gallery20 from "@/assets/gallery-20.jpg";
@@ -57,6 +57,9 @@ import gallery55 from "@/assets/gallery-55.jpeg";
 import gallery56 from "@/assets/gallery-56.jpg";
 import gallery57 from "@/assets/gallery-57.jpeg";
 import gallery58 from "@/assets/gallery-58.jpeg";
+import gallery59 from "@/assets/gallery-59.jpeg";
+import gallery60 from "@/assets/gallery-60.jpg";
+import gallery61 from "@/assets/gallery-61.jpg";
 
 const images = [
   { src: gallery1, alt: "Bridal bouquet with garden roses", w: 800, h: 1000, credit: "Chelsea Ahl Photography" },
@@ -74,14 +77,14 @@ const images = [
   { src: gallery14, alt: "Ceremony setup", w: 800, h: 1000 },
   { src: gallery15, alt: "Creative floral art", w: 800, h: 800, credit: "Nicole Nero Studio" },
   { src: gallery16, alt: "Garden roses", w: 800, h: 1000 },
-  { src: gallery17, alt: "Spring bouquet", w: 800, h: 800 },
+  { src: gallery17, alt: "Spring bouquet", w: 800, h: 800, credit: "Violet Cristina Photography" },
   { src: gallery18, alt: "Custom floral piece", w: 800, h: 1000, credit: "YTK Photography" },
   { src: gallery19, alt: "Romantic floral arrangement", w: 800, h: 800, credit: "Chelsea Ahl Photography" },
   { src: gallery20, alt: "Elegant centerpiece", w: 800, h: 1000 },
   { src: gallery21, alt: "Lush bouquet design", w: 800, h: 800 },
   { src: gallery22, alt: "Reception table flowers", w: 800, h: 1000 },
   { src: gallery23, alt: "Seasonal floral design", w: 800, h: 800 },
-  { src: gallery24, alt: "Petite arrangement", w: 800, h: 1000 },
+  { src: gallery24, alt: "Petite arrangement", w: 800, h: 1000, credit: "Violet Cristina Photography" },
   { src: gallery25, alt: "Statement floral piece", w: 800, h: 800 },
   { src: gallery26, alt: "Natural garden style bouquet", w: 800, h: 1000 },
   { src: gallery27, alt: "Whimsical floral styling", w: 800, h: 800 },
@@ -116,6 +119,9 @@ const images = [
   { src: gallery56, alt: "Floral arrangement", w: 800, h: 1000 },
   { src: gallery57, alt: "Floral arrangement", w: 800, h: 800 },
   { src: gallery58, alt: "Floral arrangement", w: 800, h: 1000 },
+  { src: gallery59, alt: "Floral arrangement", w: 800, h: 800},
+  { src: gallery60, alt: "Floral arrangement", w: 800, h: 1000},
+  { src: gallery61, alt: "Floral arrangement", w: 800, h: 800},
 ];
 
 const INITIAL_COUNT = 6;
@@ -188,7 +194,7 @@ const Gallery = () => {
           transition={{ duration: 0.8 }}
           className="mb-16 md:mb-20"
         >
-          <h2 className="font-display text-4xl md:text-5xl font-medium mb-4">Foral Archive</h2>
+          <h2 className="font-display text-4xl md:text-5xl font-medium mb-4">My Work</h2>
           <p className="text-muted-foreground font-body text-lg max-w-lg">
             {/*A collection of arrangements crafted with seasonal blooms and intentional design.*/}
           </p>

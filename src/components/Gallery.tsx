@@ -39,8 +39,8 @@ import gallery37 from "@/assets/gallery-37.jpg";
 import gallery38 from "@/assets/gallery-38.jpg";
 import gallery39 from "@/assets/gallery-39.jpeg";
 import gallery40 from "@/assets/gallery-40.jpg";
-import gallery41 from "@/assets/gallery-41.jpg";
-import gallery42 from "@/assets/gallery-42.jpg";
+import gallery41 from "@/assets/gallery-41.jpeg";
+import gallery42 from "@/assets/gallery-42.jpeg";
 import gallery43 from "@/assets/gallery-43.jpg";
 import gallery44 from "@/assets/gallery-44.jpg";
 import gallery45 from "@/assets/gallery-45.jpeg";
@@ -59,15 +59,15 @@ import gallery57 from "@/assets/gallery-57.jpeg";
 import gallery58 from "@/assets/gallery-58.jpeg";
 import gallery59 from "@/assets/gallery-59.jpeg";
 import gallery60 from "@/assets/gallery-60.jpg";
-import gallery61 from "@/assets/gallery-61.jpg";
+import gallery61 from "@/assets/gallery-61.jpeg";
 
 const images = [
-  { src: gallery1, alt: "Bridal bouquet with garden roses", w: 800, h: 1000, credit: "Chelsea Ahl Photography" },
+  { src: gallery1, alt: "Greenery-forward design", w: 800, h: 1000 },
   { src: gallery2, alt: "Wedding table centerpiece", w: 800, h: 800 },
   { src: gallery3, alt: "Minimalist vase arrangement", w: 800, h: 1000 },
   { src: gallery4, alt: "Hanging floral installation", w: 800, h: 800 },
   { src: gallery5, alt: "Wild gathered seasonal bouquet", w: 800, h: 1000 },
-  { src: gallery6, alt: "Ceremony floral archway", w: 800, h: 800 },
+  { src: gallery6, alt: "Mixed bloom arrangement", w: 800, h: 800 },
   { src: gallery7, alt: "Elegant floral design", w: 800, h: 1000 },
   { src: gallery8, alt: "Spring bouquet", w: 800, h: 800, credit: "Violet Cristina Photography" },
   { src: gallery9, alt: "Event floral styling", w: 800, h: 1000 },
@@ -101,8 +101,8 @@ const images = [
   { src: gallery38, alt: "Organic floral styling", w: 800, h: 1000 },
   { src: gallery39, alt: "Harvest season bouquet", w: 800, h: 800, credit: "Chelsea Ahl Photography" },
   { src: gallery40, alt: "Aisle floral decoration", w: 800, h: 1000 },
-  { src: gallery41, alt: "Mixed bloom arrangement", w: 800, h: 800 },
-  { src: gallery42, alt: "Greenery-forward design", w: 800, h: 1000 },
+  { src: gallery41, alt: "Ceremony floral archway", w: 800, h: 800 },
+  { src: gallery42, alt: "Bridal bouquet with garden roses", w: 800, h: 1000, credit: "Chelsea Ahl Photography" },
   { src: gallery43, alt: "Sculptural floral art", w: 800, h: 800 },
   { src: gallery44, alt: "Cottage style bouquet", w: 800, h: 1000 },
   { src: gallery45, alt: "Tableside floral accent", w: 800, h: 800, credit: "Chelsea Ahl Photography" },
@@ -121,15 +121,20 @@ const images = [
   { src: gallery58, alt: "Floral arrangement", w: 800, h: 1000 },
   { src: gallery59, alt: "Floral arrangement", w: 800, h: 800},
   { src: gallery60, alt: "Floral arrangement", w: 800, h: 1000},
-  { src: gallery61, alt: "Floral arrangement", w: 800, h: 800},
+  { src: gallery61, alt: "Elegant floral design", w: 800, h: 1000 },
 ];
 
 const INITIAL_COUNT = 8;
 
-// Distribute images across N columns — stable order so existing images never move
+// Distribute images into the shortest column (by cumulative aspect-ratio height)
 function buildColumns(imgs: typeof images, numCols: number) {
   const cols: { img: typeof images[0]; index: number }[][] = Array.from({ length: numCols }, () => []);
-  imgs.forEach((img, i) => cols[i % numCols].push({ img, index: i }));
+  const heights = new Array(numCols).fill(0);
+  imgs.forEach((img, i) => {
+    const shortest = heights.indexOf(Math.min(...heights));
+    cols[shortest].push({ img, index: i });
+    heights[shortest] += img.h / img.w;
+  });
   return cols;
 }
 

@@ -1,12 +1,12 @@
-import { useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { useState, useCallback, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import gallery1 from "@/assets/gallery-1.jpeg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpeg";
 import gallery4 from "@/assets/gallery-4.jpeg";
 import gallery5 from "@/assets/gallery-5.jpg";
 import gallery6 from "@/assets/gallery-6.jpeg";
-import gallery7 from "@/assets/gallery-7.jpg";
+import gallery7 from "@/assets/gallery-7.jpeg";
 import gallery8 from "@/assets/gallery-8.jpg";
 import gallery9 from "@/assets/gallery-9.jpg";
 import gallery10 from "@/assets/gallery-10.jpeg";
@@ -14,7 +14,7 @@ import gallery11 from "@/assets/gallery-11.jpeg";
 import gallery13 from "@/assets/gallery-13.jpg";
 import gallery14 from "@/assets/gallery-14.jpg";
 import gallery15 from "@/assets/gallery-15.jpg";
-import gallery16 from "@/assets/gallery-16.jpeg";
+import gallery16 from "@/assets/gallery-16.jpg";
 import gallery17 from "@/assets/gallery-17.jpg";
 import gallery18 from "@/assets/gallery-18.jpg";
 import gallery19 from "@/assets/gallery-19.jpeg";
@@ -69,7 +69,7 @@ const images = [
   { src: gallery5, alt: "Wild gathered seasonal bouquet", w: 800, h: 1000 },
   { src: gallery6, alt: "Ceremony floral archway", w: 800, h: 800 },
   { src: gallery7, alt: "Elegant floral design", w: 800, h: 1000 },
-  { src: gallery8, alt: "Beautiful bouquet", w: 800, h: 800 },
+  { src: gallery8, alt: "Spring bouquet", w: 800, h: 800, credit: "Violet Cristina Photography" },
   { src: gallery9, alt: "Event floral styling", w: 800, h: 1000 },
   { src: gallery10, alt: "Everyday floral arrangement", w: 800, h: 800, credit: "Chelsea Ahl Photography" },
   { src: gallery11, alt: "Special installation", w: 800, h: 1000, credit: "Olivia Nadel Photography" },
@@ -77,7 +77,7 @@ const images = [
   { src: gallery14, alt: "Ceremony setup", w: 800, h: 1000 },
   { src: gallery15, alt: "Creative floral art", w: 800, h: 800, credit: "Nicole Nero Studio" },
   { src: gallery16, alt: "Garden roses", w: 800, h: 1000 },
-  { src: gallery17, alt: "Spring bouquet", w: 800, h: 800, credit: "Violet Cristina Photography" },
+  { src: gallery17, alt: "Beautiful bouquet", w: 800, h: 800 },
   { src: gallery18, alt: "Custom floral piece", w: 800, h: 1000, credit: "YTK Photography" },
   { src: gallery19, alt: "Romantic floral arrangement", w: 800, h: 800, credit: "Chelsea Ahl Photography" },
   { src: gallery20, alt: "Elegant centerpiece", w: 800, h: 1000 },
@@ -124,7 +124,7 @@ const images = [
   { src: gallery61, alt: "Floral arrangement", w: 800, h: 800},
 ];
 
-const INITIAL_COUNT = 6;
+const INITIAL_COUNT = 8;
 
 // Distribute images across N columns — stable order so existing images never move
 function buildColumns(imgs: typeof images, numCols: number) {
@@ -136,9 +136,11 @@ function buildColumns(imgs: typeof images, numCols: number) {
 const GalleryImage = ({
   img,
   index,
+  onClick,
 }: {
   img: typeof images[0];
   index: number;
+  onClick: () => void;
 }) => {
   const [loaded, setLoaded] = useState(false);
   const onLoad = useCallback(() => setLoaded(true), []);
@@ -153,8 +155,9 @@ const GalleryImage = ({
         delay: (index % 4) * 0.08,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
-      className="relative overflow-hidden rounded-sm mb-4 md:mb-6 bg-muted"
+      className="relative overflow-hidden rounded-sm mb-4 md:mb-6 bg-muted cursor-pointer shadow-sm hover:shadow-xl hover:shadow-black/30 transition-shadow duration-300"
       style={{ aspectRatio: `${img.w} / ${img.h}` }}
+      onClick={onClick}
     >
       <img
         src={img.src}
@@ -177,8 +180,56 @@ const GalleryImage = ({
   );
 };
 
+const Lightbox = ({
+  img,
+  onClose,
+}: {
+  img: typeof images[0];
+  onClose: () => void;
+}) => {
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-10"
+      onClick={onClose}
+    >
+      <motion.img
+        initial={{ scale: 0.92, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.92, opacity: 0 }}
+        transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+        src={img.src}
+        alt={img.alt}
+        className="max-h-[90vh] max-w-full rounded-sm object-contain"
+        onClick={(e) => e.stopPropagation()}
+      />
+      {img.credit && (
+        <span className="absolute bottom-4 right-5 font-body text-xs text-white/60 tracking-wide pointer-events-none">
+          {img.credit}
+        </span>
+      )}
+    </motion.div>
+  );
+};
+
 const Gallery = () => {
   const [showAll, setShowAll] = useState(false);
+  const [selected, setSelected] = useState<typeof images[0] | null>(null);
   const visible = showAll ? images : images.slice(0, INITIAL_COUNT);
 
   const cols4 = buildColumns(visible, 4);
@@ -205,7 +256,7 @@ const Gallery = () => {
           {cols4.map((col, ci) => (
             <div key={ci} className="flex-1 flex flex-col">
               {col.map(({ img, index }) => (
-                <GalleryImage key={index} img={img} index={index} />
+                <GalleryImage key={index} img={img} index={index} onClick={() => setSelected(img)} />
               ))}
             </div>
           ))}
@@ -216,7 +267,7 @@ const Gallery = () => {
           {cols2.map((col, ci) => (
             <div key={ci} className="flex-1 flex flex-col">
               {col.map(({ img, index }) => (
-                <GalleryImage key={index} img={img} index={index} />
+                <GalleryImage key={index} img={img} index={index} onClick={() => setSelected(img)} />
               ))}
             </div>
           ))}
@@ -238,6 +289,10 @@ const Gallery = () => {
           </motion.div>
         )}
       </div>
+
+      <AnimatePresence>
+        {selected && <Lightbox img={selected} onClose={() => setSelected(null)} />}
+      </AnimatePresence>
     </section>
   );
 };
